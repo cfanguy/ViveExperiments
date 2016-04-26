@@ -6,10 +6,25 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: blade
+    100004: guard
+    100006: hilt
     400000: //RootNode
+    400002: blade
+    400004: guard
+    400006: hilt
     2300000: //RootNode
+    2300002: blade
+    2300004: guard
+    2300006: hilt
     3300000: //RootNode
+    3300002: blade
+    3300004: guard
+    3300006: hilt
     4300000: Cube
+    4300002: hilt
+    4300004: guard
+    4300006: blade
     7400000: Default Take
     9500000: //RootNode
   materials:
