@@ -2,23 +2,10 @@
 using System.Collections;
 
 public class WandController : MonoBehaviour {
-    private Valve.VR.EVRButtonId gripButton = Valve.VR.EVRButtonId.k_EButton_Grip;
-    public bool gripButtonDown = false;
-    public bool gripButtonUp = false;
-    public bool gripButtonPressed = false;
-
     private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
-    public bool triggerButtonDown = false;
-    public bool triggerButtonUp = false;
-    public bool triggerButtonPressed = false;
+    private GameObject pickup;
 
-    private SteamVR_Controller.Device controller {
-        get
-        {
-            // get input object
-            return SteamVR_Controller.Input((int)trackedObj.index);
-        }
-    }
+    private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
     private SteamVR_TrackedObject trackedObj;
 
 	// Use this for initialization
@@ -34,30 +21,28 @@ public class WandController : MonoBehaviour {
             return;
         }
 
-        gripButtonDown = controller.GetPressDown(gripButton);
-        gripButtonUp = controller.GetPressUp(gripButton);
-        gripButtonPressed = controller.GetPress(gripButton);
+        if (controller.GetPressDown(triggerButton) && pickup != null)
+        {
+            if (pickup.transform.parent == null)
+            {
+                pickup.transform.parent = this.transform;
+                pickup.GetComponent<Rigidbody>().isKinematic = true;
+            }
+            else
+            {
+                pickup.transform.parent = null;
+                pickup.GetComponent<Rigidbody>().isKinematic = false;
+            }
+        }
+    }
 
-        triggerButtonDown = controller.GetPressDown(triggerButton);
-        triggerButtonUp = controller.GetPressUp(triggerButton);
-        triggerButtonPressed = controller.GetPress(triggerButton);
+    private void OnTriggerEnter(Collider collider)
+    {
+        pickup = collider.gameObject;
+    }
 
-        if(gripButtonDown)
-        {
-            Debug.Log("Grip Button Down");
-        }
-        if (gripButtonUp)
-        {
-            Debug.Log("Grip Button Up");
-        }
-
-        if (triggerButtonDown)
-        {
-            Debug.Log("Trigger Button Down");
-        }
-        if (triggerButtonUp)
-        {
-            Debug.Log("Trigger Button Up");
-        }
+    private void OnTriggerEnd(Collider collider)
+    {
+        pickup = null;
     }
 }
