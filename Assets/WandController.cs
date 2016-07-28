@@ -50,24 +50,30 @@ public class WandController : MonoBehaviour {
             {
                 pickup.transform.parent = null;
                 pickup.GetComponent<Rigidbody>().isKinematic = false;
+                pickup = null;
             }
         }
 
         if(controller.GetPressDown(touchButton))
         {
-            Debug.Log("Pressed Down");
             Teleport();
         }
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        pickup = collider.gameObject;
+        if (collider.gameObject.name == "sword")
+        {
+            pickup = collider.gameObject;
+        }
     }
 
-    private void OnTriggerEnd(Collider collider)
+    private void OnTriggerExit(Collider collider)
     {
-        pickup = null;
+        if (collider.gameObject.name == "sword")
+        {
+            pickup = null;
+        }
     }
 
     private void Teleport()
