@@ -3,6 +3,7 @@ using System.Collections;
 
 public class WandController : MonoBehaviour {
     private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
+    private Valve.VR.EVRButtonId gripButton = Valve.VR.EVRButtonId.k_EButton_Grip;
     private Valve.VR.EVRButtonId touchButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
     private GameObject pickup;
 
@@ -39,7 +40,7 @@ public class WandController : MonoBehaviour {
             return;
         }
 
-        if (controller.GetPressDown(triggerButton) && pickup != null)
+        if (controller.GetPressDown(gripButton) && pickup != null)
         {
             if (pickup.transform.parent == null)
             {
@@ -62,7 +63,7 @@ public class WandController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.name == "sword")
+        if (collider.gameObject.name == "sword" || collider.gameObject.name == "blaster")
         {
             pickup = collider.gameObject;
         }
@@ -70,7 +71,7 @@ public class WandController : MonoBehaviour {
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.name == "sword")
+        if (collider.gameObject.name == "sword" || collider.gameObject.name == "blaster")
         {
             pickup = null;
         }
