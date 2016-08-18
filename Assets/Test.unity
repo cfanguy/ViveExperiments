@@ -98,7 +98,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e709f3e7dfb2f51449e9aa72ccaef898, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.231
+      value: 0.132
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e709f3e7dfb2f51449e9aa72ccaef898, type: 3}
       propertyPath: m_LocalPosition.z
@@ -123,6 +123,10 @@ Prefab:
     - target: {fileID: 400000, guid: e709f3e7dfb2f51449e9aa72ccaef898, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e709f3e7dfb2f51449e9aa72ccaef898, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: e709f3e7dfb2f51449e9aa72ccaef898, type: 3}
@@ -288,7 +292,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!43 &1156495497
+--- !u!43 &840488095
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -443,6 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4b24e647d58aa4185021d2dda7a930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 106056, guid: f19333905c551f7418093eafbe90bc4d, type: 2}
+  projectile_force: 180
 --- !u!1 &1357086100 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 94de4177c21bf8741b1e7ec92c6d1899, type: 3}
@@ -535,7 +541,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 94de4177c21bf8741b1e7ec92c6d1899, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 94de4177c21bf8741b1e7ec92c6d1899, type: 3}
       propertyPath: m_Enabled
@@ -549,38 +555,6 @@ Prefab:
     - {fileID: 9500000, guid: 94de4177c21bf8741b1e7ec92c6d1899, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 94de4177c21bf8741b1e7ec92c6d1899, type: 3}
   m_IsPrefabParent: 0
---- !u!21 &1615491908
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000e000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-    m_Floats:
-      data:
-        first:
-          name: PixelSnap
-        second: 0
-    m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1735486231
 Prefab:
   m_ObjectHideFlags: 0
@@ -618,7 +592,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a38b8ebe1cc3e884ba7f307a9cb60d3c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a38b8ebe1cc3e884ba7f307a9cb60d3c, type: 3}
       propertyPath: m_LocalScale.z
@@ -719,16 +693,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 420908, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1156495497}
+      objectReference: {fileID: 840488095}
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1615491908}
+      objectReference: {fileID: 1880544053}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
   m_IsPrefabParent: 0
@@ -759,6 +733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4b24e647d58aa4185021d2dda7a930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 106056, guid: f19333905c551f7418093eafbe90bc4d, type: 2}
+  projectile_force: 180
 --- !u!1 &1845571964 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: e709f3e7dfb2f51449e9aa72ccaef898, type: 3}
@@ -790,6 +766,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!21 &1880544053
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000e000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: PixelSnap
+        second: 0
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2090324297
 GameObject:
   m_ObjectHideFlags: 0

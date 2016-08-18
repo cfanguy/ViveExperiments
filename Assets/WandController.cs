@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class WandController : MonoBehaviour {
+    public GameObject projectile;
+    public float projectile_force;
+
     private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
     private Valve.VR.EVRButtonId gripButton = Valve.VR.EVRButtonId.k_EButton_Grip;
     private Valve.VR.EVRButtonId touchButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
@@ -28,8 +31,6 @@ public class WandController : MonoBehaviour {
 	// Use this for initialization
 	private void Start () {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
-
-        
     }
 
     // Update is called once per frame
@@ -53,6 +54,21 @@ public class WandController : MonoBehaviour {
                 pickup.GetComponent<Rigidbody>().isKinematic = false;
                 pickup = null;
             }
+        }
+
+        if (controller.GetPressDown(triggerButton) && pickup.name == "blaster")
+        {
+            Vector3 newPosition = pickup.transform.position;
+
+            GameObject temp_projectile = Instantiate(projectile, newPosition, pickup.transform.rotation) as GameObject;
+            Physics.IgnoreCollision(pickup.GetComponent<Collider>(), temp_projectile.GetComponent<Collider>());
+
+            Rigidbody temp_rigidBody = temp_projectile.AddComponent<Rigidbody>();
+            temp_rigidBody.useGravity = false;
+
+            temp_rigidBody.AddForce(pickup.transform.forward * projectile_force);
+
+            Destroy(temp_projectile, 3.0f);
         }
 
         if(controller.GetPressDown(touchButton))
