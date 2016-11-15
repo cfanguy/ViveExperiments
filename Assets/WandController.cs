@@ -3,6 +3,7 @@ using System.Collections;
 
 public class WandController : MonoBehaviour {
     public GameObject projectile;
+    public GameObject paintObj;
     public float projectile_force;
 
     private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
@@ -71,7 +72,18 @@ public class WandController : MonoBehaviour {
             Destroy(temp_projectile, 3.0f);
         }
 
-        if(controller.GetPressDown(touchButton))
+        if (controller.GetPress(triggerButton) && pickup.name == "paint")
+        {
+            Vector3 newPosition = pickup.transform.position;
+
+            GameObject temp_projectile = Instantiate(paintObj, newPosition, pickup.transform.rotation) as GameObject;
+            Physics.IgnoreCollision(pickup.GetComponent<Collider>(), temp_projectile.GetComponent<Collider>());
+
+            Rigidbody temp_rigidBody = temp_projectile.AddComponent<Rigidbody>();
+            temp_rigidBody.useGravity = false;
+        }
+
+        if (controller.GetPressDown(touchButton))
         {
             Teleport();
         }
@@ -79,7 +91,7 @@ public class WandController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.name == "sword" || collider.gameObject.name == "blaster")
+        if (collider.gameObject.tag == "pickup")
         {
             pickup = collider.gameObject;
         }
@@ -87,7 +99,7 @@ public class WandController : MonoBehaviour {
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.name == "sword" || collider.gameObject.name == "blaster")
+        if (collider.gameObject.tag == "pickup")
         {
             pickup = null;
         }
