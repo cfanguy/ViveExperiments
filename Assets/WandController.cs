@@ -11,8 +11,6 @@ public class WandController : MonoBehaviour {
     private Valve.VR.EVRButtonId touchButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
     private GameObject pickup;
 
-    private SteamVR_LaserPointer lp;
-
     private SteamVR_Controller.Device controller
     {
         get
@@ -34,7 +32,6 @@ public class WandController : MonoBehaviour {
 	// Use this for initialization
 	private void Start () {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
-        //lp = GetComponent<SteamVR_LaserPointer>();
     }
 
     // Update is called once per frame
@@ -45,6 +42,17 @@ public class WandController : MonoBehaviour {
             return;
         }
 
+        PickupReleaseObject();
+        TriggerAction();
+        
+        if (controller.GetPressUp(touchButton))
+        {
+            Teleport();
+        }
+    }
+
+    private void PickupReleaseObject()
+    {
         if (controller.GetPressDown(gripButton) && pickup != null)
         {
             if (pickup.transform.parent == null)
@@ -59,7 +67,10 @@ public class WandController : MonoBehaviour {
                 pickup = null;
             }
         }
+    }
 
+    private void TriggerAction()
+    {
         if (controller.GetPressDown(triggerButton) && pickup.name == "blaster")
         {
             Vector3 newPosition = pickup.transform.position;
@@ -84,11 +95,6 @@ public class WandController : MonoBehaviour {
 
             Rigidbody temp_rigidBody = temp_projectile.AddComponent<Rigidbody>();
             temp_rigidBody.useGravity = false;
-        }
-
-        if (controller.GetPressUp(touchButton))
-        {
-            Teleport();
         }
     }
 
