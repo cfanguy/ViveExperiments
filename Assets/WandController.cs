@@ -44,9 +44,16 @@ public class WandController : MonoBehaviour {
 
         PickupReleaseObject();
         TriggerAction();
-        
+        DrawRay(true);
+
+        /*if (controller.GetPressDown(touchButton))
+        {
+            DrawRay(true);
+        }*/
+
         if (controller.GetPressUp(touchButton))
         {
+            //DrawRay(false);
             Teleport();
         }
     }
@@ -116,11 +123,11 @@ public class WandController : MonoBehaviour {
 
     private void Teleport()
     {
-        var t = reference;
-        if (t == null)
+        var wandRef = reference;
+        if (wandRef == null)
             return;
 
-        float refY = t.position.y;
+        float refY = wandRef.position.y;
 
         Plane plane = new Plane(Vector3.up, -refY);
         Ray ray = new Ray(this.transform.position, transform.forward);
@@ -133,7 +140,51 @@ public class WandController : MonoBehaviour {
         if (hasGroundTarget)
         {
             Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
-            t.position = ray.origin + ray.direction * dist - new Vector3(t.GetChild(0).localPosition.x, 0f, t.GetChild(0).localPosition.z) - headPosOnGround;
+            wandRef.position = ray.origin + ray.direction * dist - new Vector3(wandRef.GetChild(0).localPosition.x, 0f, wandRef.GetChild(0).localPosition.z) - headPosOnGround;
         }
+    }
+
+    private void DrawRay(bool toDraw)
+    {
+        if(toDraw)
+        {
+            var wandRef = reference;
+            if (wandRef == null)
+                return;
+
+            float refY = wandRef.position.y;
+
+            Plane plane = new Plane(Vector3.up, -refY);
+            Ray ray = new Ray(this.transform.position, transform.forward);
+
+            bool hasGroundTarget = false;
+            float dist = 0f;
+
+            hasGroundTarget = plane.Raycast(ray, out dist);
+
+            if (hasGroundTarget)
+            {
+                Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.localPosition.x, 0.0f, SteamVR_Render.Top().head.localPosition.z);
+                
+                Vector3 newPosition = ray.origin + ray.direction * dist - new Vector3(wandRef.GetChild(0).localPosition.x, 0f, wandRef.GetChild(0).localPosition.z) - headPosOnGround;
+                DrawLine(ray.origin, newPosition, Color.cyan, 0.01f);
+            }
+            
+        }
+    }
+
+
+    void DrawLine(Vector3 start, Vector3 end, Color color, float duration)
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+        lr.SetColors(color, color);
+        lr.SetWidth(0.005f, 0.005f);
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+        GameObject.Destroy(myLine, duration);
     }
 }
